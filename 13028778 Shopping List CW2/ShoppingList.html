@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Shopping List</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+    	
+		<!--jQuery mobile css files and others-->
+		<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+        <link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+		<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+		<script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
+		<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+		<script type="text/javascript" src="http://dev.jtsage.com/cdn/spinbox/latest/jqm-spinbox.min.js"></script>
+		<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+		
+		<link href='http://fonts.googleapis.com/css?family=Calibri' rel='stylesheet' type='text/css'><link href="http://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">		
+		<!--Stylesheet and Javascript linking-->
+		<link rel="stylesheet" href="css/stylesheet.css" type="text/css" />
+		<link rel="stylesheet" href="css/normalize.css" type="text/css" />
+		<script src="js/shoppingJS.js"></script>
+		
+		<!--Shopping item quantity-->
+		<script type="text/javascript">
+						var _gaq = _gaq || [];
+						_gaq.push(['_setAccount', 'UA-36251023-1']);
+						_gaq.push(['_setDomainName', 'jqueryscript.net']);
+						_gaq.push(['_trackPageview']);
+
+						function aa() {
+							var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+							ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+							var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+						};
+		</script>
+</script>
+   	</head>
+
+	<body>
+	<!--<<<<<<<<<<THE MAIN (HOME) PAGE>>>>>>>>>>-->	
+	<div data-role="page" data-theme="b" id="mainpage">
+		<!--Header for the content pages with heading with navigation-->
+        <div data-role="header" data-position="fixed">
+                    <h1>Shopping List <img src="img/cart.png" alt="Shopping cart icon" id="image" height="30" width="30"/></h1>               
+                    <div data-role="navbar" data-iconpos="left">
+                        <ul id="ulMenu">
+							<!--Opens the 'home' page-->
+							<li><a href="#mainpage"  data-icon="home" data-iconpos="notext" data-transition="slide" data-direction="reverse">Home</a></li>
+                        </ul>
+                    </div>
+        </div>
+		<!--End of header-->
+		<div data-role="content" data-theme="b" id="home">
+			<!--Create new Shopping List-->
+			<div id="SLView" data-role="content">
+				<div data-role="content" class="ui-content">
+					<h3>Create a new Shopping List</h3>
+					<form class="">
+						<!--input type="date" id="myDate" format="dd/MM/yyyy"-->
+						<input type="date" id="myDate" value="2017-01-06">
+						<input id="SLNew" placeholder="New shopping list name" />
+						<br>
+						<input type="button" value="Add" onclick="appendToList()" />
+					</form>
+					<br>
+					<br>	
+					<h3>Saved Shopping Lists</h3>
+					<form class="ui-filterable">
+						<input placeholder="Search for existing list" id="Items" data-type="search">
+					</form>
+				<ul data-role="listview" data-filter="true" id="shoppingLists" data-input="#Items" data-autodividers="true" data-inset="true" class="touch" data-icon="false" data-split-theme="d"></ul>
+				</div>							
+			</div>
+		<!--End of Create new Shopping List-->
+		</div>
+		<!--End of Page One (Main Page)-->
+	</div>
+	<!--<<<<<<<<<<THE END OF THE MAIN (HOME) PAGE>>>>>>>>>>-->	
+		
+    <!--<<<<<<<<<<THIS IS THE SHOPPING LIST PAGE>>>>>>>>>>-->
+		<!--Add Shopping Items-->
+		<div data-role="page" data-theme="b" id="SLItem">
+			<div data-role="content" class="ui-content">
+				<div data-role="header" data-position="fixed">
+                    <h1>Shopping List <img src="img/cart.png" alt="Shopping cart icon" id="image" height="30" width="30"/></h1>
+						<div data-role="navbar" data-iconpos="left">
+                        <ul id="ulMenu">
+							<!--Opens the 'home' page-->
+							<li><a  href="#mainpage"  data-icon="home" data-iconpos="notext" data-transition="slide" data-direction="reverse">Home</a></li>
+                        </ul>
+                    </div>	
+				</div>
+						<!--End of header-->
+				<div>						
+							<table border="0" cellpadding="0">
+							<tr>
+								<td width="60%"><input type="text" class="custinput" id="SLINew" placeholder="Add items..." data-mini="true"/></td>
+								<td><input type='text' id="itemQuantity" name='quantity' value='1' class='qty' style="margin-bottom: 0px !important"/></td>
+								<td><input type='button' value='-' class='qtyminus' field='quantity' /></td>
+								<td><input type='button' value='+' class='qtyplus'  field='quantity' /></td></tr>
+								<tr>
+								<td colspan="4"><button type="submit" onclick="SIAdd()">Add</button></td>
+							</tr>
+							<tr>
+								<td><h3>Current List:</h3></td>
+								<td colspan="3" width="100%"><input data-type="search" id="SIFilter"  placeholder="Search..." data-mini="true"/></td>
+							</tr>
+							</table>
+					<div class="items">
+						<hr>
+							<table class="items;table" id="SLItems" border="0">
+								<thead>
+									<tr>
+										<!--th style="display:none;" id="lblSLName"></th-->
+										<th style="display:none;" id="myDateValueItem" value=""></th>
+										<th class="edit"><span>Edit</span></th>
+									</tr>
+								</thead>
+								<tbody data-input="#SIFilter" data-filter="true">
+								</tbody>
+							</table>
+					</div>
+				</div>
+			</div>
+				<button onclick="window.location='#mainpage'">Back to Shopping Lists</button>
+				<button onclick="DeleteList(),window.location='#mainpage'">Delete Shopping List</button>
+		<!--End of Add Shopping Items-->
+		</div> 	
+	<!--<<<<<<<<<<THIS IS THE END OF THE SHOPPING LIST PAGE>>>>>>>>>>-->
+	</body>
+</html>
