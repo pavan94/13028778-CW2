@@ -1,16 +1,14 @@
-/*-------SHOPPING LIST-------*/
+// Shopping List JS
 
+	// Variables
 	var chosenItems = {};
 	var counter = "0";
 	var listCreated = false;
 
 	$( document ).ready(function() {
-		
-	//localStorage.removeItem("SLINew");
-	//localStorage.removeItem("hi");
-	
+
 	var x = document.getElementById("myDate").value;
-   // document.getElementById("myDateValueList").innerHTML = x;
+  
 	 document.getElementById("myDateValueItem").innerHTML = x;
 	 document.getElementById("myDateValueItem").value = x;
 	 
@@ -28,7 +26,6 @@
 						   $(this).closest("li").find("input").prop('checked', true);
 					   }
 					   
-					  
 					});
 	
 	
@@ -47,19 +44,20 @@
     
         // Stop acting like a button
         e.preventDefault();
-        // Get the field name
-        fieldName = $(this).attr('field');
+        // Get the field
+        field = $(this).attr('field');
         // Get its current value
-        var currentVal = parseInt($('input[name='+fieldName+']').val());
+        var currentValue = parseInt($('input[name='+field+']').val());
         // If is not undefined
-        if (!isNaN(currentVal)) {
+        if (!isNaN(currentValue)) {
             // Increment
-            $('input[name='+fieldName+']').val(currentVal + 1);
+            $('input[name='+field+']').val(currentValue + 1);
         } else {
             // Otherwise put a 0 there
-            $('input[name='+fieldName+']').val(1);
+            $('input[name='+field+']').val(1);
         }
     });
+
     // This button will decrement the value till 0
     $(".qtyminus").click(function(e) {
     		  var qty = $(".qty").val();
@@ -70,16 +68,16 @@
         // Stop acting like a button
         e.preventDefault();
         // Get the field name
-        fieldName = $(this).attr('field');
+        field = $(this).attr('field');
         // Get its current value
-        var currentVal = parseInt($('input[name='+fieldName+']').val());
+        var currentVal = parseInt($('input[name='+field+']').val());
         // If it isn't undefined or its greater than 0
-        if (!isNaN(currentVal) && currentVal > 1) {
+        if (!isNaN(currentValue) && currentValue > 1) {
             // Decrement one
-            $('input[name='+fieldName+']').val(currentVal - 1);
+            $('input[name='+field+']').val(currentValue - 1);
         } else {
             // Otherwise put a 0 there
-            $('input[name='+fieldName+']').val(1);
+            $('input[name='+field+']').val(1);
         }
     });
     
@@ -91,20 +89,18 @@
 	});
 
 
-/*-------Shopping list - adding a new list-------*/
+// Creating New Shopping List
 
 	function appendToList(){
 	$("#shoppingLists").empty();
 	if ($("#SLNew").val()!="")  saveChoice();
 
-	//iterate through the dictionary chosenItems
 	$("pageone ul").empty();
 	for (var key in chosenItems) {
 	listvalue = chosenItems[key];
 	
 	//adding items to list
       	$('<li onclick="openShoppingList(this)">').append('<a href="#"><h3>' + listvalue + '</h3></a><a href="#" class="delete">Delete</a>').appendTo('#shoppingLists');
-     // $('<li onclick="test()">').append('<a href="#"><h3>' + listvalue + '</h3></a><a href="#" class="delete">Delete</a>').appendTo('#shoppingLists');
 		}
 	$("#shoppingLists").listview('refresh');
 		}
@@ -114,15 +110,15 @@
 		else
 			{counter =  parseInt(Object.keys(chosenItems).length) + 1}
 
-						shoppingListAdd = $("#SLNew").val();
-						chosenItems[counter] = shoppingListAdd;
+						addShoppingList = $("#SLNew").val();
+						chosenItems[counter] = addShoppingList;
 						localStorage.setItem("SLView",JSON.stringify(chosenItems));
 		}
 	
 
-/*-------SHOPPING LIST ITEMS-------*/
+	//Shopping List Items
 
-	var currentSL; 
+	var currentList; 
 	var addItems = {};
 	var counterItems = "0";
 
@@ -134,14 +130,14 @@
 
 		//refresh the items list
 		$("#SLINew").val('');
-		currentSL = "";
+		currentList = "";
 		$("#lblSLName").empty();
 	
 		//provide a name to the selected shopping list
 		$("#lblSLName").append($(obj).text());
-		currentSL = $(obj).text();
+		currentList = $(obj).text();
 
-		$("#" + currentSL).empty();
+		$("#" + currentList).empty();
 	    $("#SLItems tr").empty();
         $("#SLItems td").empty();
 		
@@ -151,21 +147,18 @@
 		var x = document.getElementById("myDate").value;
      	 document.getElementById("myDateValueList").innerHTML = x;
 	     document.getElementById("myDateValueList").value = x;
- 
-		//$('#SLItems').addClass('id').attr('id', $(obj).text());
-		//$("#SLItems").removeClass('id').attr('id', 'SLItems');
-		
+
 		addItems = {};
-		var w = localStorage.getItem(currentSL);
+		var w = localStorage.getItem(currentList);
 		if (w!=null) {
 			addItems = JSON.parse(w);
-			SIAdd();}
+			itemAdd();}
 			else{
 				
 			}	
 	}
 	
-	function SIAdd(){
+	function itemAdd(){
 		
 		$("#SLItems tr").empty();
         $("#SLItems td").empty();
@@ -192,18 +185,18 @@
 				counterItems = parseInt(Object.keys(addItems).length) + 1;
 				}
 
-				shoppingListItemAdd = $("#SLINew").val();
-				addItems[counterItems] = shoppingListItemAdd + "," + $("#itemQuantity").val() ;
-				localStorage.setItem(currentSL,JSON.stringify(addItems));
+				addShoppingListItem = $("#SLINew").val();
+				addItems[counterItems] = addShoppingListItem + "," + $("#itemQuantity").val() ;
+				localStorage.setItem(currentList,JSON.stringify(addItems));
 	}
 
 		
 	//
 	function backToList(){
-		$("#" + currentSL).empty();
+		$("#" + currentList).empty();
 		$.mobile.changePage("#SLView");}
 		
-/*-------Shopping list available items - to be used in autocomplete field-------*/
+// Shopping List Items - Auto-Complete 
 
  $( function() {
     var availableItems = [
@@ -216,13 +209,51 @@
        "Cucumbers",
        "Lettuce",
        "Mushrooms",
+       "Onions",
+       "Peppers",
+       "Potatoes",
+       "Spinach",
+       "Squash",
+       "Zucchini",
+       "Tomatoes",
+       "BBQ sauce",
+       "Gravy",
+       "Honey",
+       "Hot sauce",
+       "Jam",
+	   "Jelly",
+	   "Preserves",
+       "Ketchup",
+	   "Mustard",
+       "Mayonnaise",
+       "Pasta sauce",
+       "Relish",
+       "Salad dressing",
+       "Salsa",
+       "Soy sauce",
+       "Steak sauce",
+       "Syrup",
+       "Worcestershire sauce",
+       "Butter",
+	   "Margarine",
+       "Cottage cheese",
+       "Milk",
+       "Sour cream",
+       "Whipped cream",
+       "Yogurt",
+       "Bagels",
+	   "Croissants",
+       "Buns",
+       "Cake",
+       "Cookies",
+       "Donuts",
+       "Fresh bread",
+       "Pie",
     ];
     $( "#SLINew" ).autocomplete({
       source: availableItems
     });
   } );
-  
-/*--------------------------------------------------------------*/
 
 var id = 1; // unique id for list items
 
@@ -252,9 +283,6 @@ function getInput() {
 	}
 }
 
-/*--------------------------------------------------------------*/
-	//adding item to the list increment id counter for unique id
-/*--------------------------------------------------------------*/
 function addItem(message,quantityitem) {
 
 	 $(".cross").hide(); // hiding the delete icon
@@ -288,18 +316,16 @@ $(document).ready(function(e) {
 	});
 });
 
-
-/*--------------------------------------------------------------*/
 //Delete shopping list
 function DeleteList()
 	{
-		localStorage.removeItem(currentSL);
+		localStorage.removeItem(currentList);
 						
-		$("#" + currentSL).empty();
+		$("#" + currentList).empty();
 		$.mobile.changePage("#SLView");
 						
 			for (var key in chosenItems) {
-			     if(chosenItems[key] == currentSL){
+			     if(chosenItems[key] == currentList){
 					delete chosenItems[key];}}
 						
 						localStorage.removeItem("SLView");

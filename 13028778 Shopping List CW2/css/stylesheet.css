@@ -1,10 +1,11 @@
 body {
-background-color: #333333;
+background-color: #c0cace;
 min-width: 900px;
 }
 h1, h3, .edit, td {
-color: #ecf0f1;
-font-family: 'Times New Roman', cursive;
+color: #a8956a;
+font-family: 'Verdana';
+font-size: 14px;
 }
 header {
 text-align: center;
@@ -24,7 +25,7 @@ background-color: #666666;
 .custinput {
 width: 400px;
 background-color: #333333;
-border: 3px solid #ecf0f1;
+border: 2px solid ##ffffff;
 border-radius: 5px;
 color: #ecf0f1;
 padding: 10px 10px;
@@ -36,8 +37,8 @@ border-color: #27ae60;
 .btn {
 background-color: #27ae60;
 border: 1px solid #2ecc71;
-border-radius: 3px;
-color: #ecf0f1;
+border-radius: 2px;
+color: ##ffffff;
 font-size: 20px;
 padding: 8px 15px 10px 15px;
 margin-left: 15px;
@@ -48,9 +49,7 @@ background-color: #19713e;
 border-color: #1e9751;
 outline: none;
 }
-button.btn:focus {
-outline: none;
-}
+
 .edit {
 text-decoration: underline;
 text-align: right;
@@ -98,7 +97,6 @@ left: 0;
 top: 55%;
 width: 100%;
 }
-/*  CUSTOM CHECKBOX  */
 
 input[type=CHECKBOX].box {
 display: none;
